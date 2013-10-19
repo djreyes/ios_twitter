@@ -69,6 +69,8 @@
 
     Tweet *tweet = self.tweets[indexPath.row];
     cell.textLabel.text = tweet.text;
+    NSData *image = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:tweet.avatarUrl]];
+    cell.imageView.image = [UIImage imageWithData:image];
     
     return cell;
 }
@@ -138,7 +140,7 @@
 
 - (void)reload {
     [[TwitterClient instance] homeTimelineWithCount:20 sinceId:0 maxId:0 success:^(AFHTTPRequestOperation *operation, id response) {
-        NSLog(@"%@", response);
+//        NSLog(@"%@", response);
         self.tweets = [Tweet tweetsWithArray:response];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

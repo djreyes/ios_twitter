@@ -14,6 +14,10 @@
     return [self.data valueOrNilForKeyPath:@"text"];
 }
 
+- (NSString *)avatarUrl {
+    return [[self.data valueOrNilForKeyPath:@"user"] valueOrNilForKeyPath:@"profile_image_url"];
+}
+
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {
     NSMutableArray *tweets = [[NSMutableArray alloc] initWithCapacity:array.count];
     for (NSDictionary *params in array) {
