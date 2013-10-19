@@ -7,6 +7,7 @@
 //
 
 #import "TimelineVC.h"
+#import "TweetCell.h"
 
 @interface TimelineVC ()
 
@@ -24,7 +25,7 @@
     self = [super initWithStyle:style];
     if (self) {
         self.title = @"Twitter";
-        
+        self.tableView.delegate = self;
         [self reload];
     }
     return self;
@@ -35,7 +36,10 @@
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton)];
-
+    
+    UINib *timelineNib = [UINib nibWithNibName:@"TweetCell" bundle:Nil];
+    [self.tableView registerNib:timelineNib forCellReuseIdentifier:@"TweetCell"];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -63,14 +67,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    static NSString *CellIdentifier = @"TweetCell";
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 
     Tweet *tweet = self.tweets[indexPath.row];
     cell.textLabel.text = tweet.text;
     NSData *image = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:tweet.profilePicture]];
-    cell.imageView.image = [UIImage imageWithData:image];
+    cell.profilePictureImage.image = [UIImage imageWithData:image];
     
     return cell;
 }
