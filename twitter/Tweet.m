@@ -24,7 +24,11 @@
 }
 
 - (NSString *)timestamp {
-    return [[self.data valueOrNilForKeyPath:@"user"] valueOrNilForKeyPath:@"created_at"];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
+    NSString *createdAt =[self.data valueOrNilForKeyPath:@"created_at"];
+    NSDate *date = [df dateFromString:createdAt];
+    return [date timeAgo];
 }
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {

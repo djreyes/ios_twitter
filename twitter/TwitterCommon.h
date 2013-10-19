@@ -20,4 +20,6 @@
 // Categories
 #import "NSDictionary+CPAdditions.h"
 
+#import "NSDate+TimeAgo.h"
+
 #endif
