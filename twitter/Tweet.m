@@ -14,8 +14,17 @@
     return [self.data valueOrNilForKeyPath:@"text"];
 }
 
-- (NSString *)avatarUrl {
+- (NSString *)username {
+    NSString *username = [NSString stringWithFormat:@"@%@", [[self.data valueOrNilForKeyPath:@"user"] valueOrNilForKeyPath:@"screen_name"]];
+    return username;
+}
+
+- (NSString *)profilePicture {
     return [[self.data valueOrNilForKeyPath:@"user"] valueOrNilForKeyPath:@"profile_image_url"];
+}
+
+- (NSString *)timestamp {
+    return [[self.data valueOrNilForKeyPath:@"user"] valueOrNilForKeyPath:@"created_at"];
 }
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {

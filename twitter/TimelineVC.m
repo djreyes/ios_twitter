@@ -69,8 +69,9 @@
 
     Tweet *tweet = self.tweets[indexPath.row];
     cell.textLabel.text = tweet.text;
-    NSData *image = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:tweet.avatarUrl]];
+    NSData *image = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:tweet.profilePicture]];
     cell.imageView.image = [UIImage imageWithData:image];
+    NSLog(@"%@", tweet.username);
     
     return cell;
 }
